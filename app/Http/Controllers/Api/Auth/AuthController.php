@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    // Registers Users
     public function createUser(Request $request)
     {
         try {
@@ -51,6 +52,7 @@ class AuthController extends Controller
         }
     }
 
+    // Login Users
     public function loginUser(Request $request)
     {
         try {
@@ -70,6 +72,13 @@ class AuthController extends Controller
             }
 
             $user = User::where('email', $request->email)->first();
+
+            if (!Auth::guard('api')->attempt($request->only(['email', 'password']))) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Email & Password does not match with our record.',
+                ], 401);
+            }
 
             return response()->json([
                 'status' => true,
