@@ -64,7 +64,7 @@ class AuthRepository implements AuthRepositoryInterface
             if ($validateUser->fails()) {
                 return response()->json([
                     'status' => false,
-                    'errors' => $validateUser->errors()
+                    'errors' => $validateUser->errors(),
                 ]);
             }
 
