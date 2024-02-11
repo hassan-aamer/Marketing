@@ -23,12 +23,16 @@ class ProductController extends Controller
     {
         return $this ->product->show();
     }
-    public function create()
+    public function create(Request $request)
     {
-        return $this ->product->create();
+        return $this ->product->create($request);
     }
     public function update()
     {
         return $this ->product->update();
+    }
+    public function delete()
+    {
+        return $this ->product->delete();
     }
 }
