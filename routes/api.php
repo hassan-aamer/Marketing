@@ -24,6 +24,7 @@ Route::post('/login', [App\Http\Controllers\Api\Auth\AuthController::class, 'log
 Route::post('/logout', [App\Http\Controllers\Api\Auth\AuthController::class, 'logout']);
 Route::post('/update/{id}', [App\Http\Controllers\Api\Auth\AuthController::class, 'update']);
 Route::get('/allUsers', [App\Http\Controllers\Api\Auth\AuthController::class, 'allUsers']);
+Route::get('/delete/{id}', [App\Http\Controllers\Api\Auth\AuthController::class, 'delete']);
 //-----------------------------------End Auth--------------------------------------
 
 

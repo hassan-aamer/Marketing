@@ -44,4 +44,8 @@ class AuthController extends Controller
     {
         return $this->auth->allUsers();
     }
+    public function delete($id)
+    {
+        return $this->auth->delete($id);
+    }
 }

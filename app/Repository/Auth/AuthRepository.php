@@ -164,9 +164,9 @@ class AuthRepository implements AuthRepositoryInterface
     }
 
 
-
-    public function delete()
+    public function delete($id)
     {
-        //
+        User::destroy($id);
+        return response(["status" => true, "message" => "deleted success"], 200);
     }
 }
