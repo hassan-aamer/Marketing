@@ -40,4 +40,8 @@ class AuthController extends Controller
     {
         return $this->auth->update($request,$id);
     }
+    public function allUsers()
+    {
+        return $this->auth->allUsers();
+    }
 }

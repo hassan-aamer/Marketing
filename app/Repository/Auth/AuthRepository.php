@@ -10,6 +10,18 @@ use App\Interfaces\Auth\AuthRepositoryInterface;
 
 class AuthRepository implements AuthRepositoryInterface
 {
+
+    //All Users
+    public function allUsers()
+    {
+        $users = User::all();
+        return response()->json([
+            'status' => true,
+            'message' => 'All Users Successfully',
+            'data' => $users,
+        ], 200);
+    }
+
     // Registers Users
     public function register($request)
     {

@@ -23,6 +23,7 @@ Route::post('/Register', [App\Http\Controllers\Api\Auth\AuthController::class, '
 Route::post('/login', [App\Http\Controllers\Api\Auth\AuthController::class, 'loginUser']);
 Route::post('/logout', [App\Http\Controllers\Api\Auth\AuthController::class, 'logout']);
 Route::post('/update/{id}', [App\Http\Controllers\Api\Auth\AuthController::class, 'update']);
+Route::get('/allUsers', [App\Http\Controllers\Api\Auth\AuthController::class, 'allUsers']);
 //-----------------------------------End Auth--------------------------------------
 
 
