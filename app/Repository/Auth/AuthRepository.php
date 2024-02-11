@@ -93,19 +93,64 @@ class AuthRepository implements AuthRepositoryInterface
     }
 
 
-    public function logout( $request)
+    //Logout User
+    public function logout($request)
     {
         Auth::logout();
-
         return response(["status" => true, "message" => "Logout success"], 200);
     }
 
 
-
-    public function update()
+    // Update User
+    public function update($request, $id)
     {
-        //
+        try {
+            // التحقق من وجود المستخدم
+            $user = User::find($id);
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User not found'
+                ], 404);
+            }
+
+            //Validated
+            $validateUser = Validator::make(
+                $request->all(),
+                [
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|email|unique:users,email,' . $user->id,
+                    'password' => 'sometimes|required|string|min:8|confirmed',
+                ]
+            );
+
+            if ($validateUser->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validateUser->errors()
+                ], 422); // استخدم 422 للإشارة إلى أن البيانات غير صالحة
+            }
+
+            // تحديث بيانات المستخدم
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->has('password') ? Hash::make($request->password) : $user->password,
+            ]);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'User updated successfully',
+                'user' => $user
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
+
 
 
     public function delete()

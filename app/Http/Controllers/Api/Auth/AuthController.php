@@ -36,4 +36,8 @@ class AuthController extends Controller
     {
         return $this->auth->logout($request);
     }
+    public function update(Request $request ,$id)
+    {
+        return $this->auth->update($request,$id);
+    }
 }
