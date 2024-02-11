@@ -2,6 +2,7 @@
 namespace App\Repository\Auth;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -92,14 +93,11 @@ class AuthRepository implements AuthRepositoryInterface
     }
 
 
-    public function logout($request)
+    public function logout( $request)
     {
-        $deleted = $request->user()->currentAccessToken()->delete();
-        if ($deleted) {
-            return response(["status" => true, "message" => "Logout success"], 200);
-        } else {
-            return response(["status" => false, "message" => "Logout failed"], 500);
-        }
+        Auth::logout();
+
+        return response(["status" => true, "message" => "Logout success"], 200);
     }
 
 
