@@ -40,7 +40,8 @@ class ProductsRepository implements ProductsRepositoryInterface
         try {
             $product = new Product();
             $product->name = $request->name;
-            $product->image = $request->image;
+            $product->image = $request->file('image')->getClientOriginalName();
+            $product->$request->file('image')->store('Product','images');
             $product->price = $request->price;
             $product->status = $request->status;
             $product->description = $request->description;

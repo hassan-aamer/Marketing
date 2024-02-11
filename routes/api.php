@@ -29,7 +29,11 @@ Route::get('/delete/{id}', [App\Http\Controllers\Api\Auth\AuthController::class,
 
 
 //-----------------------------------Start Products--------------------------------
-
+Route::middleware('auth:sanctum')->group(function (){
+    Route::group(['prefix' => 'Products'], function () {
+        Route::post('/create', [App\Http\Controllers\Api\Products\ProductController::class, 'create']);
+    });
+});
 //-----------------------------------End Products----------------------------------
 
 
