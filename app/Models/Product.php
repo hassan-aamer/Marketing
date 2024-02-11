@@ -9,4 +9,9 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable=['name','image','price','status','description'];
+
+    public function Reviews()
+    {
+        return $this->hasOne(review::class, 'user_id');
+    }
 }
