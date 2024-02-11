@@ -14,4 +14,21 @@ class ProductController extends Controller
     {
         $this->product = $product;
     }
+
+    public function index()
+    {
+        return $this ->product->index();
+    }
+    public function show()
+    {
+        return $this ->product->show();
+    }
+    public function create()
+    {
+        return $this ->product->create();
+    }
+    public function update()
+    {
+        return $this ->product->update();
+    }
 }
