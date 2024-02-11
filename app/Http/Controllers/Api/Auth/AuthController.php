@@ -30,4 +30,10 @@ class AuthController extends Controller
     {
         return $this->auth->login($request);
     }
+
+    // Logout Users
+    public function logout(Request $request)
+    {
+        return $this->auth->logout($request);
+    }
 }

@@ -90,4 +90,28 @@ class AuthRepository implements AuthRepositoryInterface
             ], 500);
         }
     }
+
+
+    public function logout($request)
+    {
+        $deleted = $request->user()->currentAccessToken()->delete();
+        if ($deleted) {
+            return response(["status" => true, "message" => "Logout success"], 200);
+        } else {
+            return response(["status" => false, "message" => "Logout failed"], 500);
+        }
+    }
+
+
+
+    public function update()
+    {
+        //
+    }
+
+
+    public function delete()
+    {
+        //
+    }
 }
