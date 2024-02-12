@@ -18,17 +18,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//=============================================Auth======================================
-Route::controller(\App\Http\Controllers\Api\Auth\AuthController::class)->group(function () {
-    Route::post('/Register', 'createUser');
-    Route::post('/login', 'loginUser');
-    Route::post('/logout', 'logout');
-    Route::post('/update/{id}', 'update');
-    Route::get('/allUsers', 'allUsers');
-    Route::get('/delete/{id}', 'delete');
-});
-//=============================================Products===================================
+
 Route::middleware('auth:sanctum')->group(function () {
+    //=============================================Auth======================================
+    Route::controller(\App\Http\Controllers\Api\Auth\AuthController::class)->group(function () {
+        Route::post('/Register', 'createUser');
+        Route::post('/login', 'loginUser');
+        Route::post('/logout', 'logout');
+        Route::post('/update/{id}', 'update');
+        Route::get('/allUsers', 'allUsers');
+        Route::get('/delete/{id}', 'delete');
+    });
+    //=============================================Products===================================
     Route::group(['prefix' => 'Products'], function () {
         Route::controller(\App\Http\Controllers\Api\Products\ProductController::class)->group(function () {
             Route::post('/create', 'create');
@@ -39,20 +40,23 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/delete/{id}', 'delete');
         });
     });
-});
-//=============================================Offers======================================
-Route::middleware('auth:sanctum')->group(function () {
+    //=============================================Offers======================================
     Route::group(['prefix' => 'Offers'], function () {
         Route::controller(\App\Http\Controllers\Api\Offers\offerController::class)->group(function () {
             //
         });
     });
-});
-//=============================================Review======================================
-Route::middleware('auth:sanctum')->group(function () {
+    //=============================================Review======================================
     Route::group(['prefix' => 'Review'], function () {
         Route::controller(\App\Http\Controllers\Api\Review\ReviewController::class)->group(function () {
             //
         });
     });
+
+
+
+
+
+
+
 });
