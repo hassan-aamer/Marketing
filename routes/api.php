@@ -41,6 +41,12 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/delete/{id}', 'delete');
         });
     });
+    //=============================================About======================================
+    Route::group(['prefix' => 'About'], function () {
+        Route::controller(\App\Http\Controllers\Api\About\AboutController::class)->group(function () {
+            Route::post('/update/{id}', 'update');
+        });
+    });
     //=============================================Offers======================================
     Route::group(['prefix' => 'Offers'], function () {
         Route::controller(\App\Http\Controllers\Api\Offers\offerController::class)->group(function () {
