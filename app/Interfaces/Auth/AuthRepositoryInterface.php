@@ -21,4 +21,7 @@ interface AuthRepositoryInterface
 
     // Get All Users
     public function allUsers();
+
+    //Get One user by ID
+    public function show($id);
 }

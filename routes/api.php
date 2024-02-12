@@ -26,6 +26,7 @@ Route::controller(\App\Http\Controllers\Api\Auth\AuthController::class)->group(f
     Route::post('/update/{id}', 'update');
     Route::get('/allUsers', 'allUsers');
     Route::get('/delete/{id}', 'delete');
+    Route::get('/show/{id}', 'show');
 });
 Route::middleware('auth:sanctum')->group(function () {
 

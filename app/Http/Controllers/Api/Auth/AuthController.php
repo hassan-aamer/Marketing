@@ -48,4 +48,8 @@ class AuthController extends Controller
     {
         return $this->auth->delete($id);
     }
+    public function show($id)
+    {
+        return $this->auth->show($id);
+    }
 }

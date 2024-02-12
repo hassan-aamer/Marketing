@@ -165,10 +165,32 @@ class AuthRepository implements AuthRepositoryInterface
         }
     }
 
-
+    // Delete One User From ID
     public function delete($id)
     {
         User::destroy($id);
         return response(["status" => true, "message" => "deleted success"], 200);
     }
+
+
+    //Get One User From ID
+    public function show($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response([
+                "status" => false,
+                "user" => null,
+                "message" => "User not found",
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => true,
+            'user' => $user,
+            'message' => 'Get One User successfully',
+        ], 200);
+    }
+
 }
