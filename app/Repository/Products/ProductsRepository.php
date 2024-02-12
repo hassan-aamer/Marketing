@@ -81,6 +81,7 @@ class ProductsRepository implements ProductsRepositoryInterface
             $product->status = $request->status;
             $product->description = $request->description;
             $product->save();
+
             $product_id = $product->id;
 
             // حفظ الملف الجديد بنفس المعرف
