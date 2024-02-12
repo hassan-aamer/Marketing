@@ -8,10 +8,28 @@ use App\Interfaces\Products\ProductsRepositoryInterface;
 class ProductsRepository implements ProductsRepositoryInterface
 {
 
-    // Get All Product
+    // Get All Product By Activated
     public function index()
     {
         $product = Product::orderBy('created_at', 'DESC')->where('status', 1)->first();
+        if (!$product) {
+            return response([
+                "status" => false,
+                "data" => null,
+                "message" => "No product found",
+            ], 404);
+        }
+        return response([
+            "status" => true,
+            "data" => $product,
+            "message" => "Get latest product successfully",
+        ], 200);
+    }
+
+    // Get All Product
+    public function allProducts()
+    {
+        $product = Product::orderBy('created_at', 'DESC')->get();
         if (!$product) {
             return response([
                 "status" => false,

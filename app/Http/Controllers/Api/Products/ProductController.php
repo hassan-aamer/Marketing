@@ -20,6 +20,10 @@ class ProductController extends Controller
     {
         return $this ->product->index();
     }
+    public function allProducts()
+    {
+        return $this ->product->allProducts();
+    }
     public function show()
     {
         return $this ->product->show();
@@ -32,8 +36,8 @@ class ProductController extends Controller
     {
         return $this ->product->update($request);
     }
-    public function delete()
+    public function delete($id)
     {
-        return $this ->product->delete();
+        return $this ->product->delete($id);
     }
 }

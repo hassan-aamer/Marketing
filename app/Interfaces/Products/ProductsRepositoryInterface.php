@@ -4,8 +4,11 @@ namespace App\Interfaces\Products;
 
 interface ProductsRepositoryInterface
 {
-    // git All products
+    // git All products By Activated
     public function index();
+
+    // git All products
+    public function allProducts();
 
     // Create a new product
     public function create($request);
