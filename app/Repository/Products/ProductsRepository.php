@@ -69,7 +69,7 @@ class ProductsRepository implements ProductsRepositoryInterface
             $product->save();
             $product_id = $product->id;
 
-            // حفظ الصورة فى الدسك بال ID
+            // حفظ الملف الجديد بنفس المعرف
             $image_location = $request->file('image')->storeAs('Products/' . $product_id, $image_original_name, 'images');
 
             DB::commit();
@@ -95,14 +95,18 @@ class ProductsRepository implements ProductsRepositoryInterface
             }
 
             if ($request->hasFile('image')) {
-                // حفظ الصورة الجديدة بالاسم الأصلي والحصول على مسارها
-                $image_original_name = $request->file('image')->getClientOriginalName();
-                $image_location = $request->file('image')->storeAs('Products', $image_original_name, 'images');
 
-                // حذف الصورة القديمة إذا كانت موجودة
-                if ($product->image && Storage::disk('images')->exists('images/' . $product->image)) {
-                    Storage::disk('images')->delete('images/Products/' . $product->image);
+                // حذف الملف القديم  الخاص بالصورة بالكامل
+                if ($product->image) {
+                    $product_id = $product->id;
+                    $old_image_path = 'Products/' . $product_id . '/' . $product->image;
+                    Storage::disk('images')->delete($old_image_path);
                 }
+
+                // حفظ الملف الجديد بنفس المعرف
+                $image_original_name = $request->file('image')->getClientOriginalName();
+                $image_location = $request->file('image')->storeAs('Products/' . $product_id, $image_original_name, 'images');
+
 
                 // تعيين المسار والاسم الأصلي للصورة الجديدة للمنتج
                 $product->image = $image_location;
