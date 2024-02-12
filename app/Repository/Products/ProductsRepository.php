@@ -46,7 +46,7 @@ class ProductsRepository implements ProductsRepositoryInterface
             $product->status = $request->status;
             $product->description = $request->description;
             $product->save();
-            // $path = $request->file('image')->store('Products','images');
+            $image_location = $request->file('image')->store('Products','images');
 
             DB::commit();
 
