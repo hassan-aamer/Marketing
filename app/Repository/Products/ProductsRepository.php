@@ -3,6 +3,7 @@ namespace App\Repository\Products;
 
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Interfaces\Products\ProductsRepositoryInterface;
 
 class ProductsRepository implements ProductsRepositoryInterface
@@ -79,10 +80,50 @@ class ProductsRepository implements ProductsRepositoryInterface
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    public function update($request)
+    public function update($request, $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $product = Product::find($id);
+            if (!$product) {
+                return response()->json(['error' => 'Product not found'], 404);
+            }
+
+            if ($request->hasFile('image')) {
+                // حفظ الصورة الجديدة والحصول على مسارها
+                $image_location = $request->file('image')->store('Products', 'images');
+
+                // حذف الصورة القديمة إذا كانت موجودة
+                if ($product->image) {
+                    Storage::disk('images')->delete($product->image);
+                }
+
+                // تعيين الصورة الجديدة للمنتج
+                $product->image = $image_location;
+            }
+
+            // تحديث بقية بيانات المنتج
+            $product->name = $request->name;
+            $product->price = $request->price;
+            $product->status = $request->status;
+            $product->description = $request->description;
+            $product->save();
+
+            DB::commit();
+
+            return response([
+                "status" => true,
+                "data" => $product,
+                "message" => "Product updated successfully",
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+
+
 
 
     public function delete($id)

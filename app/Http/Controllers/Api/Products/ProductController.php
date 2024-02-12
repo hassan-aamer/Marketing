@@ -32,9 +32,9 @@ class ProductController extends Controller
     {
         return $this ->product->create($request);
     }
-    public function update(ProductRequest $request)
+    public function update(ProductRequest $request ,$id)
     {
-        return $this ->product->update($request);
+        return $this ->product->update($request, $id);
     }
     public function delete($id)
     {

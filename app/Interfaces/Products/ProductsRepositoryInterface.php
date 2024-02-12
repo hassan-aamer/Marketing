@@ -17,7 +17,7 @@ interface ProductsRepositoryInterface
     public function show();
 
     // update one product
-    public function update($request);
+    public function update($request,$id);
 
     // Delete one product
     public function delete($id);
