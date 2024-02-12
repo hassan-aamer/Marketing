@@ -39,6 +39,7 @@ class ProductsRepository implements ProductsRepositoryInterface
         DB::beginTransaction();
         try {
             $image = $request->file('image')->getClientOriginalName();
+            $image_location = $request->file('image')->store('Products', 'images');
             $product = new Product();
             $product->name = $request->name;
             $product->image = $image;
@@ -46,7 +47,6 @@ class ProductsRepository implements ProductsRepositoryInterface
             $product->status = $request->status;
             $product->description = $request->description;
             $product->save();
-            $image_location = $request->file('image')->store('Products','images');
 
             DB::commit();
 
