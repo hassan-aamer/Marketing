@@ -15,4 +15,7 @@ interface ReviewsRepositoryInterface
 
     // Get One review By ID
     public function show();
+
+    // Delete a review By ID
+    public function delete($id);
 }

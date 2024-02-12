@@ -17,5 +17,5 @@ interface ProductsRepositoryInterface
     public function update($request);
 
     // Delete one product
-    public function delete();
+    public function delete($id);
 }

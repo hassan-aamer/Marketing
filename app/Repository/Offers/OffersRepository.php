@@ -23,4 +23,9 @@ class OffersRepository implements OffersRepositoryInterface
     {
         //
     }
+
+    public function delete($id)
+    {
+        //
+    }
 }

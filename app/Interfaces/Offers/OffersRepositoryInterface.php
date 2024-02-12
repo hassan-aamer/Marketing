@@ -15,4 +15,7 @@ interface OffersRepositoryInterface
 
     // Get One offer by ID
     public function show();
+
+    // Delete One offer by ID
+    public function delete($id);
 }

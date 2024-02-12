@@ -67,7 +67,7 @@ class ProductsRepository implements ProductsRepositoryInterface
     }
 
 
-    public function delete()
+    public function delete($id)
     {
         //
     }

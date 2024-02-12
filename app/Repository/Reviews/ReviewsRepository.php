@@ -22,4 +22,8 @@ class ReviewsRepository implements ReviewsRepositoryInterface
     {
         //
     }
+    public function delete($id)
+    {
+        //
+    }
 }
