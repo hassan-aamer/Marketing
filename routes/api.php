@@ -36,9 +36,18 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 //=============================================Offers======================================
-
-
-
-
+Route::middleware('auth:sanctum')->group(function () {
+    Route::group(['prefix' => 'Offers'], function () {
+        Route::controller(\App\Http\Controllers\Api\Offers\offerController::class)->group(function () {
+            //
+        });
+    });
+});
 //=============================================Review======================================
-
+Route::middleware('auth:sanctum')->group(function () {
+    Route::group(['prefix' => 'Review'], function () {
+        Route::controller(\App\Http\Controllers\Api\Review\ReviewController::class)->group(function () {
+            //
+        });
+    });
+});
