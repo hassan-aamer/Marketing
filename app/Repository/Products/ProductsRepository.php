@@ -90,16 +90,18 @@ class ProductsRepository implements ProductsRepositoryInterface
             }
 
             if ($request->hasFile('image')) {
-                // حفظ الصورة الجديدة والحصول على مسارها
-                $image_location = $request->file('image')->store('Products', 'images');
+                // حفظ الصورة الجديدة بالاسم الأصلي والحصول على مسارها
+                $image_original_name = $request->file('image')->getClientOriginalName();
+                $image_location = $request->file('image')->storeAs('Products', $image_original_name, 'images');
 
                 // حذف الصورة القديمة إذا كانت موجودة
                 if ($product->image) {
                     Storage::disk('images')->delete($product->image);
                 }
 
-                // تعيين الصورة الجديدة للمنتج
+                // تعيين المسار والاسم الأصلي للصورة الجديدة للمنتج
                 $product->image = $image_location;
+                $product->image = $image_original_name;
             }
 
             // تحديث بقية بيانات المنتج
