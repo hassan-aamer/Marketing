@@ -38,14 +38,15 @@ class ProductsRepository implements ProductsRepositoryInterface
     {
         DB::beginTransaction();
         try {
+            $image = $request->file('image')->getClientOriginalName();
             $product = new Product();
             $product->name = $request->name;
-            $product->image = $request->file('image')->getClientOriginalName();
-            $product->$request->file('image')->store('Product','images');
+            $product->image = $image;
             $product->price = $request->price;
             $product->status = $request->status;
             $product->description = $request->description;
             $product->save();
+            // $path = $request->file('image')->store('Products','images');
 
             DB::commit();
 
