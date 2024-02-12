@@ -57,11 +57,11 @@ class ProductsRepository implements ProductsRepositoryInterface
     {
         DB::beginTransaction();
         try {
-            $image = $request->file('image')->getClientOriginalName();
-            $image_location = $request->file('image')->store('Products', 'images');
+            $image_original_name = $request->file('image')->getClientOriginalName();
+            $image_location = $request->file('image')->storeAs('Products', $image_original_name, 'images');
             $product = new Product();
             $product->name = $request->name;
-            $product->image = $image;
+            $product->image = $image_original_name;
             $product->price = $request->price;
             $product->status = $request->status;
             $product->description = $request->description;
@@ -95,8 +95,8 @@ class ProductsRepository implements ProductsRepositoryInterface
                 $image_location = $request->file('image')->storeAs('Products', $image_original_name, 'images');
 
                 // حذف الصورة القديمة إذا كانت موجودة
-                if ($product->image) {
-                    Storage::disk('images')->delete($product->image);
+                if ($product->image && Storage::disk('images')->exists('images/' . $product->image)) {
+                    Storage::disk('images')->delete('images/Products/' . $product->image);
                 }
 
                 // تعيين المسار والاسم الأصلي للصورة الجديدة للمنتج
