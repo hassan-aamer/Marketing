@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/allProducts', 'allProducts');
             Route::get('/Activated', 'index');
             Route::get('/One/Product/{id}', 'show');
+            Route::get('/delete/{id}', 'delete');
         });
     });
 });

@@ -27,6 +27,7 @@ class ProductsRepository implements ProductsRepositoryInterface
         ], 200);
     }
 
+
     // Get All Product
     public function allProducts()
     {
@@ -46,6 +47,7 @@ class ProductsRepository implements ProductsRepositoryInterface
     }
 
 
+    //get One Product
     public function show($id)
     {
         $product = Product::find($id);
@@ -97,6 +99,9 @@ class ProductsRepository implements ProductsRepositoryInterface
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+
+    // Update One Product By ID
     public function update($request, $id)
     {
         DB::beginTransaction();
@@ -147,11 +152,30 @@ class ProductsRepository implements ProductsRepositoryInterface
     }
 
 
-
-
+    //Delete One Product By ID
     public function delete($id)
     {
-        //
+        $product = Product::find($id);
+
+        if (!$product) {
+            return response([
+                "status" => false,
+                "message" => "Product not found",
+            ], 404);
+        }
+
+        // حذف الملف المرتبط بالمنتج
+        $product_id = $product->id;
+        $old_image_path = 'Products/' . $product_id . '/' . $product->image;
+        Storage::disk('images')->delete($old_image_path);
+
+        // حذف المنتج
+        $product->delete();
+
+        return response([
+            "status" => true,
+            "message" => "Deleted successfully",
+        ], 200);
     }
 
 }
