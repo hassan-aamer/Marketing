@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
 use App\Interfaces\Products\ProductsRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class ProductController extends Controller
     {
         return $this ->product->show();
     }
-    public function create(Request $request)
+    public function create(ProductRequest $request)
     {
         return $this ->product->create($request);
     }
