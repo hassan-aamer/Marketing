@@ -57,8 +57,9 @@ class ProductsRepository implements ProductsRepositoryInterface
     {
         DB::beginTransaction();
         try {
+            // جلب اسم الصورة الاصلي لحفظه فى الداتا بيز
             $image_original_name = $request->file('image')->getClientOriginalName();
-            $image_location = $request->file('image')->storeAs('Products', $image_original_name, 'images');
+
             $product = new Product();
             $product->name = $request->name;
             $product->image = $image_original_name;
@@ -66,6 +67,10 @@ class ProductsRepository implements ProductsRepositoryInterface
             $product->status = $request->status;
             $product->description = $request->description;
             $product->save();
+            $product_id = $product->id;
+
+            // حفظ الصورة فى الدسك بال ID
+            $image_location = $request->file('image')->storeAs('Products/' . $product_id, $image_original_name, 'images');
 
             DB::commit();
 
