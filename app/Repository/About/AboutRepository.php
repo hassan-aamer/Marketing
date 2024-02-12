@@ -5,5 +5,8 @@ use App\Interfaces\About\AboutRepositoryInterface;
 
 class AboutRepository implements AboutRepositoryInterface
 {
-
+    public function update($request,$id)
+    {
+        //
+    }
 }
