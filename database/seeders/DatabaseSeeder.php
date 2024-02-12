@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
             'mobile_number' => '01129730475',
             'password' => Hash::make("password"),
         ]);
+
+        $this->call(AboutSeeder::class,);
     }
 }

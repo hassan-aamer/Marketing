@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\About;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AboutRequest;
 use App\Interfaces\About\AboutRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class AboutController extends Controller
     {
         $this->about = $about;
     }
-    public function update(Request $request, $id)
+    public function update(AboutRequest $request, $id)
     {
         return $this->about->update($request, $id);
     }
