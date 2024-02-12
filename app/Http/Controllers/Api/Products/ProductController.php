@@ -24,9 +24,9 @@ class ProductController extends Controller
     {
         return $this ->product->allProducts();
     }
-    public function show()
+    public function show($id)
     {
-        return $this ->product->show();
+        return $this ->product->show($id);
     }
     public function create(ProductRequest $request)
     {

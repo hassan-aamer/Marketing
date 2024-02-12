@@ -14,7 +14,7 @@ interface ProductsRepositoryInterface
     public function create($request);
 
     // Get one product
-    public function show();
+    public function show($id);
 
     // update one product
     public function update($request,$id);

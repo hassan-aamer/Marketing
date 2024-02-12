@@ -46,9 +46,21 @@ class ProductsRepository implements ProductsRepositoryInterface
     }
 
 
-    public function show()
+    public function show($id)
     {
-        //
+        $product = Product::find($id);
+        if (!$product) {
+            return response([
+                "status" => false,
+                "data" => null,
+                "message" => "No product found",
+            ], 404);
+        }
+        return response([
+            "status" => true,
+            "data" => $product,
+            "message" => "Get One product successfully",
+        ], 200);
     }
 
 
