@@ -61,7 +61,7 @@ class ProductsRepository implements ProductsRepositoryInterface
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    public function update()
+    public function update($request)
     {
         //
     }
