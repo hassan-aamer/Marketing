@@ -7,6 +7,8 @@ use App\Models\About;
 
 class AboutRepository implements AboutRepositoryInterface
 {
+
+    // Update About
     public function update($request,$id)
     {
         DB::beginTransaction();
@@ -32,5 +34,17 @@ class AboutRepository implements AboutRepositoryInterface
             DB::rollback();
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    // Show About
+    public function show($id)
+    {
+        $about = About::find($id);
+
+        return response([
+            "status" => true,
+            "data" => $about,
+            "message" => "Show About successfully",
+        ], 200);
     }
 }
