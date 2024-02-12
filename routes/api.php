@@ -18,30 +18,27 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//-----------------------------------Start Auth------------------------------------
-Route::post('/Register', [App\Http\Controllers\Api\Auth\AuthController::class, 'createUser']);
-Route::post('/login', [App\Http\Controllers\Api\Auth\AuthController::class, 'loginUser']);
-Route::post('/logout', [App\Http\Controllers\Api\Auth\AuthController::class, 'logout']);
-Route::post('/update/{id}', [App\Http\Controllers\Api\Auth\AuthController::class, 'update']);
-Route::get('/allUsers', [App\Http\Controllers\Api\Auth\AuthController::class, 'allUsers']);
-Route::get('/delete/{id}', [App\Http\Controllers\Api\Auth\AuthController::class, 'delete']);
-//-----------------------------------End Auth--------------------------------------
-
-
-//-----------------------------------Start Products--------------------------------
-Route::middleware('auth:sanctum')->group(function (){
+//=============================================Auth======================================
+Route::controller(\App\Http\Controllers\Api\Auth\AuthController::class)->group(function () {
+    Route::post('/Register', 'createUser');
+    Route::post('/login', 'loginUser');
+    Route::post('/logout', 'logout');
+    Route::post('/update/{id}', 'update');
+    Route::get('/allUsers', 'allUsers');
+    Route::get('/delete/{id}', 'delete');
+});
+//=============================================Products===================================
+Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'Products'], function () {
-        Route::post('/create', [App\Http\Controllers\Api\Products\ProductController::class, 'create']);
+        Route::controller(\App\Http\Controllers\Api\Products\ProductController::class)->group(function () {
+            Route::post('/create', 'create');
+        });
     });
 });
-//-----------------------------------End Products----------------------------------
+//=============================================Offers======================================
 
 
-//-----------------------------------Start Offers----------------------------------
-
-//-----------------------------------End Offers------------------------------------
 
 
-//-----------------------------------Start Review----------------------------------
+//=============================================Review======================================
 
-//-----------------------------------End Review------------------------------------
