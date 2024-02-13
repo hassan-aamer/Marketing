@@ -51,7 +51,12 @@ Route::middleware('auth:sanctum')->group(function () {
     //=============================================Offers======================================
     Route::group(['prefix' => 'Offers'], function () {
         Route::controller(\App\Http\Controllers\Api\Offers\offerController::class)->group(function () {
-            //
+            Route::post('/create', 'create');
+            Route::post('/update/{id}', 'update');
+            Route::get('/all/Offers', 'allOffers');
+            Route::get('/Offers/Activated', 'index');
+            Route::get('/One/Offer/{id}', 'show');
+            Route::get('/delete/{id}', 'delete');
         });
     });
     //=============================================Review======================================
