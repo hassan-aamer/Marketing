@@ -32,4 +32,12 @@ class offerController extends Controller
     {
         return $this->offer->update($request, $id);
     }
+    public function show($id)
+    {
+        return $this->offer->show($id);
+    }
+    public function delete($id)
+    {
+        return $this->offer->delete($id);
+    }
 }

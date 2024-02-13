@@ -153,6 +153,26 @@ class OffersRepository implements OffersRepositoryInterface
     }
     public function delete($id)
     {
-        //
+        $offer = offer::find($id);
+
+        if (!$offer) {
+            return response([
+                "status" => false,
+                "message" => "Product not found",
+            ], 404);
+        }
+
+        // حذف الصوره المرتبط بالمنتج
+        $offer_id = $offer->id;
+        $old_image_path = 'Offers/' . $offer_id . '.' . $offer->image;
+        Storage::disk('images')->delete($old_image_path);
+
+        // حذف المنتج
+        $offer->delete();
+
+        return response([
+            "status" => true,
+            "message" => "Deleted successfully",
+        ], 200);
     }
 }
