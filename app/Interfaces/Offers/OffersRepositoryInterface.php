@@ -4,17 +4,19 @@ namespace App\Interfaces\Offers;
 
 interface OffersRepositoryInterface
 {
-    // Get all offers
+    //git All Offers By Activated
     public function index();
+    //Get all offers
+    public function allOffers();
 
     // Create new offer
-    public function create();
+    public function create($request);
 
     // Update offer
     public function update();
 
     // Get One offer by ID
-    public function show();
+    public function show($id);
 
     // Delete One offer by ID
     public function delete($id);
