@@ -4,6 +4,7 @@ namespace App\Repository\Offers;
 use App\Models\offer;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Interfaces\Offers\OffersRepositoryInterface;
 
 class OffersRepository implements OffersRepositoryInterface
@@ -101,9 +102,54 @@ class OffersRepository implements OffersRepositoryInterface
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    public function update()
+    public function update($request , $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $offer = offer::find($id);
+            if (!$offer) {
+                return response()->json(['error' => 'offer not found'], 404);
+            }
+
+            if ($request->hasFile('image')) {
+
+                // حذف الملف القديم  الخاص بالصورة بالكامل
+                if ($offer->image) {
+                    $offer_id = $offer->id;
+                    $old_image_path = 'Offers/' . $offer_id . '.' . $offer->image;
+                    Storage::disk('images')->delete($old_image_path);
+                }
+
+                // حفظ الملف الجديد بنفس المعرف
+                $image_original_name = $request->file('image')->getClientOriginalName();
+                $image_location = $request->file('image')->storeAs('Offers', $offer_id . '.' . $image_original_name, 'images');
+
+
+                // تعيين المسار والاسم الأصلي للصورة الجديدة للمنتج
+                $offer->image = $image_location;
+                $offer->image = $image_original_name;
+            }
+
+            // تحديث بقية بيانات المنتج
+            $offer->name = $request->name;
+            $offer->new_price = $request->new_price;
+            $offer->old_price = $request->old_price;
+            $offer->status = $request->status;
+            $offer->description = $request->description;
+            $offer->save();
+
+            DB::commit();
+
+            return response([
+                "status" => true,
+                "data" => $offer,
+                "message" => "Offer updated successfully",
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
     public function delete($id)
     {

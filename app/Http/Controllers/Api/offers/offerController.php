@@ -14,4 +14,13 @@ class offerController extends Controller
     {
         $this->offer = $offer;
     }
+
+    public function create(Request $request)
+    {
+        return $this->offer->create($request);
+    }
+    public function update(Request $request , $id)
+    {
+        return $this->offer->update($request, $id);
+    }
 }

@@ -13,7 +13,7 @@ interface OffersRepositoryInterface
     public function create($request);
 
     // Update offer
-    public function update();
+    public function update($request , $id);
 
     // Get One offer by ID
     public function show($id);
