@@ -16,6 +16,10 @@ class offerController extends Controller
         $this->offer = $offer;
     }
 
+    public function index()
+    {
+        return $this->offer->index();
+    }
     public function allOffers()
     {
         return $this->offer->allOffers();
@@ -24,7 +28,7 @@ class offerController extends Controller
     {
         return $this->offer->create($request);
     }
-    public function update(OfferRequest $request , $id)
+    public function update(OfferRequest $request, $id)
     {
         return $this->offer->update($request, $id);
     }
