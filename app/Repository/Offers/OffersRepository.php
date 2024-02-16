@@ -118,14 +118,13 @@ class OffersRepository implements OffersRepositoryInterface
 
                 // حذف الملف القديم  الخاص بالصورة بالكامل
                 if ($offer->image) {
-                    $offer_id = $offer->id;
-                    $old_image_path = 'Offers/' . $offer_id . '.' . $offer->image;
+                    $old_image_path = 'Offers/' . $offer->id . '.' . $offer->image;
                     Storage::disk('images')->delete($old_image_path);
                 }
 
                 // حفظ الملف الجديد بنفس المعرف
                 $image_original_name = $request->file('image')->getClientOriginalName();
-                $image_location = $request->file('image')->storeAs('Offers', $offer_id . '.' . $image_original_name, 'images');
+                $image_location = $request->file('image')->storeAs('Offers', $offer->id . '.' . $image_original_name, 'images');
 
 
                 // تعيين المسار والاسم الأصلي للصورة الجديدة للمنتج
