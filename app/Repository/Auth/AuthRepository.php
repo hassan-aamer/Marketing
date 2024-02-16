@@ -54,7 +54,8 @@ class AuthRepository implements AuthRepositoryInterface
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
-                'token' => $user->createToken("API TOKEN")->plainTextToken
+                'token' => $user->createToken("API TOKEN")->plainTextToken,
+                "user" => $user,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -95,8 +96,8 @@ class AuthRepository implements AuthRepositoryInterface
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
+                'token' => $user->createToken("API TOKEN")->plainTextToken,
                 "user" => $user,
-                'token' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
