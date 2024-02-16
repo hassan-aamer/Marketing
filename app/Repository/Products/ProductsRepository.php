@@ -77,10 +77,17 @@ class ProductsRepository implements ProductsRepositoryInterface
             $product = new Product();
             $product->name = $request->name;
             $product->image = $image_original_name;
+            $product->image_url = '/public/images/Products/' . $product->image;
             $product->price = $request->price;
             $product->status = $request->status;
             $product->description = $request->description;
-            $product->save();
+
+
+            if($product->save()){
+                $product->image = $product->id . '.' . $image_original_name;
+                $product->image_url = '/public/images/Products/' . $product->image;
+                $product->save();
+            }
 
             $product_id = $product->id;
 
@@ -132,11 +139,17 @@ class ProductsRepository implements ProductsRepositoryInterface
             }
 
             // تحديث بقية بيانات المنتج
+            $product->image_url = '/public/images/Products/' . $product->image;
             $product->name = $request->name;
             $product->price = $request->price;
             $product->status = $request->status;
             $product->description = $request->description;
-            $product->save();
+
+            if ($product->save()) {
+                $product->image = $product->id . '.' . $image_original_name;
+                $product->image_url = '/public/images/Products/' . $product->image;
+                $product->save();
+            }
 
             DB::commit();
 

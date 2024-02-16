@@ -72,6 +72,7 @@ class OffersRepository implements OffersRepositoryInterface
             $offer->number = 'MUR|' . Str::random(10);
             $offer->name = $request->name;
             $offer->image = $image_original_name;
+            $offer->image_url = '/public/images/Offers/' . $offer->image;
             $offer->new_price = $request->new_price;
             $offer->old_price = $request->old_price;
             $offer->status = $request->status;
@@ -80,6 +81,8 @@ class OffersRepository implements OffersRepositoryInterface
             //After the saving process, the ID is added to the number
             if ($offer->save()) {
                 $offer->number .= '|' . $offer->id;
+                $offer->image = $offer->id . '.' . $image_original_name;
+                $offer->image_url = '/public/images/Offers/' . $offer->image;
                 $offer->save();
 
             }
@@ -131,12 +134,18 @@ class OffersRepository implements OffersRepositoryInterface
             }
 
             // تحديث بقية بيانات المنتج
+            $offer->image_url = '/public/images/Offers/' . $offer->image;
             $offer->name = $request->name;
             $offer->new_price = $request->new_price;
             $offer->old_price = $request->old_price;
             $offer->status = $request->status;
             $offer->description = $request->description;
-            $offer->save();
+
+            if ($offer->save()) {
+                $offer->image = $offer->id . '.' . $image_original_name;
+                $offer->image_url = '/public/images/Offers/' . $offer->image;
+                $offer->save();
+            }
 
             DB::commit();
 
