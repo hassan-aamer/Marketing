@@ -82,8 +82,7 @@ class ProductsRepository implements ProductsRepositoryInterface
             $product->status = $request->status;
             $product->description = $request->description;
 
-
-            if($product->save()){
+            if ($product->save()) {
                 $product->image = $product->id . '.' . $image_original_name;
                 $product->image_url = '/public/images/Products/' . $product->image;
                 $product->save();
