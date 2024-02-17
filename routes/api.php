@@ -48,6 +48,13 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/show/{id}', 'show');
         });
     });
+    //=============================================Contact======================================
+    Route::group(['prefix' => 'Contact'], function () {
+        Route::controller(\App\Http\Controllers\Api\Contact\ContactController::class)->group(function () {
+            Route::post('/update/{id}', 'update');
+            Route::get('/show/{id}', 'show');
+        });
+    });
     //=============================================Offers======================================
     Route::group(['prefix' => 'Offers'], function () {
         Route::controller(\App\Http\Controllers\Api\offers\offerController::class)->group(function () {
