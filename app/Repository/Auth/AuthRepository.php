@@ -33,7 +33,7 @@ class AuthRepository implements AuthRepositoryInterface
                     'name' => 'required|string|max:255',
                     'email' => 'required|email|unique:users,email',
                     'password' => 'required|string|min:8|confirmed',
-                    'mobile_number' => 'required|string|regex:/^01[0125][0-9]{8}$/|size:11',
+                    'phone' => 'required|string|unique:users,phone|regex:/^01[0125][0-9]{8}$/|size:11',
                 ]
             );
 
@@ -47,7 +47,7 @@ class AuthRepository implements AuthRepositoryInterface
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'mobile_number' => $request->mobile_number,
+                'phone' => $request->phone,
                 'password' => Hash::make($request->password),
             ]);
 
