@@ -4,7 +4,7 @@ namespace App\Interfaces\Contact;
 
 interface ContactRepositoryInterface
 {
-    public function index();
+    public function update($request,$id);
 
-    public function create($request);
+    public function show($id);
 }
