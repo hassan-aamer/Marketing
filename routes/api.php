@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //=============================================Auth======================================
 Route::controller(\App\Http\Controllers\Api\Auth\AuthController::class)->group(function () {
     Route::post('/Register', 'createUser');
-    Route::post('/login', 'loginUser');
+    Route::get('/login', 'loginUser');
     Route::post('/logout', 'logout');
     Route::post('/update/{id}', 'update');
     Route::get('/allUsers', 'allUsers');
