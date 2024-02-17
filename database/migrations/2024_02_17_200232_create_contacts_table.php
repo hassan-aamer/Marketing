@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('url_instagram');
             $table->string('url_twitter');
             $table->string('url_youtube');
+            $table->text('location');
             $table->timestamps();
         });
     }
