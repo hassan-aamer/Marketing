@@ -17,7 +17,7 @@ class OffersRepository implements OffersRepositoryInterface
             return response([
                 "status" => false,
                 "data" => null,
-                "message" => "No Offer found",
+                "message" => "No activated offer found",
             ], 404);
         }
         return response([
@@ -30,7 +30,7 @@ class OffersRepository implements OffersRepositoryInterface
     public function allOffers()
     {
         $offer = offer::orderBy('created_at', 'DESC')->get();
-        if (!$offer) {
+        if ($offer->isEmpty()) {
             return response([
                 "status" => false,
                 "data" => null,

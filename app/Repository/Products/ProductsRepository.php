@@ -17,7 +17,7 @@ class ProductsRepository implements ProductsRepositoryInterface
             return response([
                 "status" => false,
                 "data" => null,
-                "message" => "No product found",
+                "message" => "No activated product found",
             ], 404);
         }
         return response([
@@ -32,7 +32,7 @@ class ProductsRepository implements ProductsRepositoryInterface
     public function allProducts()
     {
         $product = Product::orderBy('created_at', 'DESC')->get();
-        if (!$product) {
+        if ($product->isEmpty()) {
             return response([
                 "status" => false,
                 "data" => null,
