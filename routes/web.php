@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return '<a href="' . url('https://hassan-aamer.github.io/My_Portfolio/') . '">Backend development by Hassan Mohamed</a>';
+    return '<a href="' . url('https://github.com/hassan-aamer') . '">Backend development by Hassan Mohamed</a>';
 });
 
 Auth::routes();
