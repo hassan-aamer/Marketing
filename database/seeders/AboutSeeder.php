@@ -14,7 +14,7 @@ class AboutSeeder extends Seeder
     public function run(): void
     {
         About::create([
-            'title'=>'About As',
+            'title'=>'About US',
             'description'=>'Welcome to the System | Development By ( Front End Mohamed Emad ) And ( Back End Hassan Mohamed )',
         ]);
     }
