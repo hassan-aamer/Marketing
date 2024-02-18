@@ -81,16 +81,10 @@ class ProductsRepository implements ProductsRepositoryInterface
             $product->price = $request->price;
             $product->status = $request->status;
             $product->description = $request->description;
-
-            if ($product->save()) {
-                $product->image = $product->id . '.' . $image_original_name;
-                $product->save();
-            }
-
-            $product_id = $product->id;
+            $product->save();
 
             // حفظ الصورة الجديده بنفس المعرف
-            $image_location = $request->file('image')->storeAs('Products', $product_id . '.' . $image_original_name, 'images');
+            $image_location = $request->file('image')->storeAs('Products/'. $product->id , $image_original_name, 'images');
 
             DB::commit();
 
@@ -118,21 +112,18 @@ class ProductsRepository implements ProductsRepositoryInterface
             }
 
             if ($request->hasFile('image')) {
-
                 // حذف الملف القديم  الخاص بالصورة بالكامل
                 if ($product->image) {
-                    $old_image_path = 'Products/' . $product->id . '.' . $product->image;
-                    Storage::disk('images')->delete($old_image_path);
+                    $old_image_directory = 'Products/' . $product->id;
+                    Storage::disk('images')->deleteDirectory($old_image_directory);
                 }
 
                 // حفظ الملف الجديد بنفس المعرف
                 $image_original_name = $request->file('image')->getClientOriginalName();
-                $image_location = $request->file('image')->storeAs('Products', $product->id . '.' . $image_original_name, 'images');
+                $image_location = $request->file('image')->storeAs('Products/' . $product->id, $image_original_name, 'images');
 
-
-                // تعيين المسار والاسم الأصلي للصورة الجديدة للمنتج
+                // تعيين المسار للصورة الجديدة للمنتج
                 $product->image = $image_location;
-                $product->image = $image_original_name;
             }
 
             // تحديث بقية بيانات المنتج
@@ -140,11 +131,7 @@ class ProductsRepository implements ProductsRepositoryInterface
             $product->price = $request->price;
             $product->status = $request->status;
             $product->description = $request->description;
-
-            if ($product->save()) {
-                $product->image = $product->id . '.' . $image_original_name;
-                $product->save();
-            }
+            $product->save();
 
             DB::commit();
 
@@ -174,9 +161,8 @@ class ProductsRepository implements ProductsRepositoryInterface
         }
 
         // حذف الصوره المرتبط بالمنتج
-        $product_id = $product->id;
-        $old_image_path = 'Products/' . $product_id . '.' . $product->image;
-        Storage::disk('images')->delete($old_image_path);
+        $old_image_directory = 'Products/' . $product->id;
+        Storage::disk('images')->deleteDirectory($old_image_directory);
 
         // حذف المنتج
         $product->delete();
