@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository\Products;
 
+use App\Enums\Status;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +13,7 @@ class ProductsRepository implements ProductsRepositoryInterface
     // Get All Product By Activated
     public function index()
     {
-        $product = Product::orderBy('created_at', 'DESC')->where('status', 1)->first();
+        $product = Product::orderBy('created_at', 'DESC')->where('status', Status::ACTIVE)->first();
         if (!$product) {
             return response([
                 "status" => false,

@@ -1,6 +1,7 @@
 <?php
 namespace App\Repository\Offers;
 
+use App\Enums\Status;
 use App\Models\offer;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,7 @@ class OffersRepository implements OffersRepositoryInterface
 {
     public function index()
     {
-        $offer = offer::orderBy('created_at', 'DESC')->where('status', 1)->first();
+        $offer = offer::orderBy('created_at', 'DESC')->where('status', Status::ACTIVE)->first();
         if (!$offer) {
             return response([
                 "status" => false,
