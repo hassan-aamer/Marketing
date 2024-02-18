@@ -22,21 +22,24 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|min:5|max:255|not_regex:/[<>]/',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'price' => 'required|numeric|min:0',
-            'status' => 'required',
-            'description' => 'required|string',
+            'status' => 'required|not_regex:/[<>]/',
+            'description' => 'required|string|min:10|not_regex:/[<>]/',
         ];
     }
     public function messages()
     {
         return [
             'name.required' => 'Please enter the product name.',
+            'name.not_regex' => 'Please cannot enter invalid codes.',
             'image.required' => 'Please choose an image for the product.',
             'price.required' => 'Please enter the product price.',
-            'status.required' => 'Please specify the product status.',
+            'status.required' => 'Please enter the product status.',
+            'status.not_regex' => 'Please cannot enter invalid codes.',
             'description.required' => 'Please enter the product description.',
+            'description.not_regex' => 'Please cannot enter invalid codes.',
         ];
     }
 }

@@ -22,13 +22,13 @@ class ContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => 'required|string|unique:contacts,phone|regex:/^01[0125][0-9]{8}$/|size:11',
-            'email' => 'required|email|unique:contacts,email',
-            'url_facebook' => 'required|string',
-            'url_instagram' => 'required|string',
-            'url_twitter' => 'required|string',
-            'url_youtube' => 'required|string',
-            'location' => 'required|string',
+            'phone' => 'required|string|unique:contacts,phone|regex:/^01[0125][0-9]{8}$/|size:11|not_regex:/[<>]/',
+            'email' => 'required|email|unique:contacts,email|not_regex:/[<>]/',
+            'url_facebook' => 'required|url',
+            'url_instagram' => 'required|url',
+            'url_twitter' => 'required|url',
+            'url_youtube' => 'required|url',
+            'location' => 'required|string|min:20|not_regex:/[<>]/',
         ];
     }
     public function messages()
@@ -38,14 +38,17 @@ class ContactRequest extends FormRequest
             'phone.unique' => 'The phone number is already in use.',
             'phone.regex' => 'The phone number is invalid. It must follow the correct format.',
             'phone.size' => 'The phone number must be 11 characters long.',
+            'phone.not_regex' => 'Please cannot enter invalid codes.',
             'email.required' => 'Please enter the email.',
             'email.email' => 'The email must be a valid email address.',
             'email.unique' => 'The email address is already in use.',
+            'email.not_regex' => 'Please cannot enter invalid codes.',
             'url_facebook.required' => 'Please enter the url_facebook.',
             'url_instagram.required' => 'Please enter the url_instagram.',
             'url_twitter.required' => 'Please enter the url_twitter.',
             'url_youtube.required' => 'Please enter the url_youtube.',
             'location.required' => 'Please enter the location.',
+            'location.not_regex' => 'Please cannot enter invalid codes.',
         ];
     }
 }

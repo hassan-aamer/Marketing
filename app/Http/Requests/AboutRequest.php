@@ -22,15 +22,17 @@ class AboutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title' => 'required|string|min:5|max:255|not_regex:/[<>]/',
+            'description' => 'required|string|min:50|not_regex:/[<>]/'
         ];
     }
     public function messages()
     {
         return [
-            'name.required' => 'Please enter the About title.',
+            'title.required' => 'Please enter the About title.',
             'description.required' => 'Please enter the About description.',
+            'description.not_regex' => 'Please cannot enter invalid codes.',
+            'title.not_regex' => 'Please cannot enter invalid codes.',
         ];
     }
 }
