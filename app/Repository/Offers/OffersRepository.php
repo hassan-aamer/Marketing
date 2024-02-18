@@ -81,7 +81,6 @@ class OffersRepository implements OffersRepositoryInterface
             //After the saving process, the ID is added to the number
             if ($offer->save()) {
                 $offer->number .= '|' . $offer->id;
-                $offer->image = $offer->id . '.' . $image_original_name;
                 $offer->save();
 
             }
@@ -89,7 +88,7 @@ class OffersRepository implements OffersRepositoryInterface
             $offer_id = $offer->id;
 
             // حفظ الصورة الجديده بنفس المعرف
-            $image_location = $request->file('image')->storeAs('Offers', $offer_id . '.' . $image_original_name, 'images');
+            $image_location = $request->file('image')->storeAs('Offers/'. $offer->id , $image_original_name, 'images');
 
             DB::commit();
 
@@ -114,21 +113,18 @@ class OffersRepository implements OffersRepositoryInterface
             }
 
             if ($request->hasFile('image')) {
-
                 // حذف الملف القديم  الخاص بالصورة بالكامل
                 if ($offer->image) {
-                    $old_image_path = 'Offers/' . $offer->id . '.' . $offer->image;
-                    Storage::disk('images')->delete($old_image_path);
+                    $old_image_directory = 'Offers/' . $offer->id;
+                    Storage::disk('images')->deleteDirectory($old_image_directory);
                 }
 
                 // حفظ الملف الجديد بنفس المعرف
                 $image_original_name = $request->file('image')->getClientOriginalName();
-                $image_location = $request->file('image')->storeAs('Offers', $offer->id . '.' . $image_original_name, 'images');
+                $image_location = $request->file('image')->storeAs('Offers/' . $offer->id, $image_original_name, 'images');
 
-
-                // تعيين المسار والاسم الأصلي للصورة الجديدة للمنتج
+                // تعيين المسار للصورة الجديدة للمنتج
                 $offer->image = $image_location;
-                $offer->image = $image_original_name;
             }
 
             // تحديث بقية بيانات المنتج
@@ -137,11 +133,8 @@ class OffersRepository implements OffersRepositoryInterface
             $offer->old_price = $request->old_price;
             $offer->status = $request->status;
             $offer->description = $request->description;
+            $offer->save();
 
-            if ($offer->save()) {
-                $offer->image = $offer->id . '.' . $image_original_name;
-                $offer->save();
-            }
 
             DB::commit();
 
@@ -168,9 +161,8 @@ class OffersRepository implements OffersRepositoryInterface
         }
 
         // حذف الصوره المرتبط بالمنتج
-        $offer_id = $offer->id;
-        $old_image_path = 'Offers/' . $offer_id . '.' . $offer->image;
-        Storage::disk('images')->delete($old_image_path);
+        $old_image_directory = 'Offers/' . $offer->id;
+        Storage::disk('images')->deleteDirectory($old_image_directory);
 
         // حذف المنتج
         $offer->delete();
