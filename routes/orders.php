@@ -8,7 +8,7 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::post('/create', 'create');
             Route::get('/all', 'index');
             Route::get('/show/{id}', 'show');
-            Route::get('/delete/{id}', 'delete');
+            Route::delete('/delete/{id}', 'delete');
         });
     });
 });
