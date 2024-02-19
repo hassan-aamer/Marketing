@@ -52,6 +52,21 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/delete/{id}', 'delete');
         });
     });
+    //=============================================Orders======================================
+    Route::group(['prefix' => 'Orders'], function () {
+        Route::controller(\App\Http\Controllers\Api\Orders\OrderController::class)->group(function () {
+            Route::post('/create', 'create');
+            Route::get('/all', 'index');
+            Route::get('/show/{id}', 'show');
+            Route::get('/delete/{id}', 'delete');
+        });
+    });
+    //=============================================Payment======================================
+    Route::group(['prefix' => 'Payment'], function () {
+        Route::controller(\App\Http\Controllers\Api\Payment\PaymentController::class)->group(function () {
+            Route::post('/create', 'create');
+        });
+    });
     //=============================================About======================================
     Route::group(['prefix' => 'About'], function () {
         Route::controller(\App\Http\Controllers\Api\About\AboutController::class)->group(function () {
