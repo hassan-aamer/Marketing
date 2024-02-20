@@ -18,8 +18,8 @@ class AboutController extends Controller
     {
         return $this->about->update($request, $id);
     }
-    public function show($id)
-    {
-        return $this->about->show($id);
-    }
+    // public function show($id)
+    // {
+    //     return $this->about->show($id);
+    // }
 }
