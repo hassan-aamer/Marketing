@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->group(function () {
+// Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'Products'], function () {
         Route::controller(\App\Http\Controllers\Api\Products\ProductController::class)->group(function () {
             Route::post('/create', 'create');
@@ -13,4 +13,4 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::delete('/delete/{id}', 'delete');
         });
     });
-});
+// });
