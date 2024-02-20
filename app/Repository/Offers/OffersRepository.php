@@ -124,7 +124,7 @@ class OffersRepository implements OffersRepositoryInterface
                 $image_location = $request->file('image')->storeAs('Offers/' . $offer->id, $image_original_name, 'images');
 
                 // تعيين المسار للصورة الجديدة للمنتج
-                $offer->image = $image_location;
+                $offer->image = $image_original_name;
             }
 
             // تحديث بقية بيانات المنتج

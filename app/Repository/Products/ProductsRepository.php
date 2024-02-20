@@ -123,7 +123,7 @@ class ProductsRepository implements ProductsRepositoryInterface
                 $image_location = $request->file('image')->storeAs('Products/' . $product->id, $image_original_name, 'images');
 
                 // تعيين المسار للصورة الجديدة للمنتج
-                $product->image = $image_location;
+                $product->image = $image_original_name;
             }
 
             // تحديث بقية بيانات المنتج
