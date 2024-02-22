@@ -8,7 +8,7 @@ Route::group(['prefix' => 'Auth'], function () {
         Route::post('/login', 'loginUser');
         Route::post('/logout', 'logout');
         Route::post('/update/{id}', 'update')->middleware('auth:sanctum');
-        Route::get('/allUsers', 'allUsers')->middleware('checkUserRole');
+        Route::get('/allUsers', 'allUsers')->middleware('auth:sanctum');
         Route::delete('/delete/{id}', 'delete')->middleware('auth:sanctum');
         Route::get('/show/{id}', 'show')->middleware('auth:sanctum');
     });

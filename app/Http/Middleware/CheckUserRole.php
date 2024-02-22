@@ -15,7 +15,7 @@ class CheckUserRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $email='admin@admin.com';
+        $email = env('ADMIN_EMAIL');
         if (auth()->user()->email == $email) {
             return $next($request);
         }
