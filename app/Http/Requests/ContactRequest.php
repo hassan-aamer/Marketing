@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ContactRequest extends FormRequest
@@ -22,8 +23,8 @@ class ContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => 'required|string|unique:contacts,phone|regex:/^01[0125][0-9]{8}$/|size:11|not_regex:/[<>]/' . $this->id,
-            'email' => 'required|email|unique:contacts,email|not_regex:/[<>]/' . $this->id,
+            'phone' => ['required','string','regex:/^01[0125][0-9]{8}$/','size:11','not_regex:/[<>]/',Rule::unique('contacts')->ignore($this->id)],
+            'email' => ['required','email','not_regex:/[<>]/', Rule::unique('contacts')->ignore($this->id)],
             'url_facebook' => 'required|url',
             'url_instagram' => 'required|url',
             'url_twitter' => 'required|url',
