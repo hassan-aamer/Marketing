@@ -29,7 +29,7 @@ class ContactRequest extends FormRequest
             'url_instagram' => 'required|url',
             'url_twitter' => 'required|url',
             'url_youtube' => 'required|url',
-            'location' => 'required|string|min:20|not_regex:/[<>]/',
+            'location' => 'required|string|min:5|not_regex:/[<>]/',
         ];
     }
     public function messages()
