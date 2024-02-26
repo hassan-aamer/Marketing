@@ -11,12 +11,4 @@ class review extends Model
     use HasFactory;
     protected $guarded = array();
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-    public function products(): BelongsTo
-    {
-        return $this->belongsTo(Product::class);
-    }
 }

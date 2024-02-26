@@ -10,8 +10,12 @@ class Product extends Model
     use HasFactory;
     protected $fillable=['name','image','price','status','description'];
 
-    public function Reviews()
+    public function Order()
     {
-        return $this->hasOne(review::class, 'user_id');
+        return $this->hasOne(Order::class);
+    }
+    public function Payment()
+    {
+        return $this->hasOne(Payment::class);
     }
 }

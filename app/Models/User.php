@@ -39,8 +39,5 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function Reviews()
-    {
-        return $this->hasOne(review::class, 'user_id');
-    }
+
 }
