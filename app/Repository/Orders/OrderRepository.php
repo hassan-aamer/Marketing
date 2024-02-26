@@ -1,9 +1,7 @@
 <?php
 namespace App\Repository\Orders;
 
-use App\Models\offer;
 use App\Models\Order;
-use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use App\Interfaces\Orders\OrderRepositoryInterface;
 
